@@ -304,21 +304,11 @@
 
             <div
                 class="relative rounded-2xl overflow-hidden glass border border-white/10 shadow-2xl shadow-indigo-500/20 aspect-video group">
-                <!-- Placeholder for YouTube Embed -->
-                <div
-                    class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/30 transition-colors">
-                    <div class="text-center">
-                        <div
-                            class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm mb-4 mx-auto border border-white/20 group-hover:scale-110 transition-transform cursor-pointer">
-                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                        </div>
-                        <p class="text-gray-300 font-medium">Watch the Demo Video</p>
-                    </div>
-                </div>
-                <!-- Optional: Add actual iframe here later -->
-                <!-- <iframe class="w-full h-full" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                <video id="demoVideo" class="w-full h-full object-cover" controls preload="metadata"
+                    poster="hawk-hero.png">
+                    <source src="Demo Video CH.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </section>
@@ -372,6 +362,34 @@
         </div>
     </footer>
 
+    <script>
+        // Auto-play video when clicking "Watch Demo" button
+        document.addEventListener('DOMContentLoaded', function () {
+            const demoLinks = document.querySelectorAll('a[href="#demo"]');
+            const demoVideo = document.getElementById('demoVideo');
+
+            demoLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Smooth scroll to demo section
+                    document.getElementById('demo').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+
+                    // Wait for scroll to complete, then play video
+                    setTimeout(() => {
+                        if (demoVideo) {
+                            demoVideo.play().catch(err => {
+                                console.log('Autoplay prevented:', err);
+                            });
+                        }
+                    }, 800);
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
